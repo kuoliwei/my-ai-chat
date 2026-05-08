@@ -11,9 +11,10 @@ interface ChatAreaProps {
   messages: Message[];
   isWaiting: boolean;
   onSendMessage: (text: string) => void;
+  onReset: () => void; // 接收來自 page.tsx 的重置函式
 }
 
-export default function ChatArea({ selectedChar, messages, isWaiting, onSendMessage }: ChatAreaProps) {
+export default function ChatArea({ selectedChar, messages, isWaiting, onSendMessage, onReset }: ChatAreaProps) {
   // 模型選單相關狀態
   const [models, setModels] = useState<string[]>([]);
   const [currentModel, setCurrentModel] = useState('載入中...');
@@ -110,10 +111,11 @@ useEffect(() => {
         )}
       </div>
 
-      {/* 輸入區 */}
+{/* 輸入區 */}
       <ChatInput 
         isWaiting={isWaiting} 
         onSendMessage={onSendMessage} 
+        onReset={onReset} // [修改 3]：將 onReset 往下傳給 ChatInput
       />
     </div>
   );
